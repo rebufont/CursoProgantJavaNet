@@ -13,23 +13,39 @@ public class GestorBD
 
 	static final String USER = "root";
 	static final String PASS = "adminadmin";
+
 	
-	public static boolean hacerLogin(String nombre, String password)
+	public static Connection getConnection()
 	{
-
-		Connection conn = null;
-		Statement stmt = null;
-
 		try {
 			// En entorno web (Tomcat), es necesario iniciarlizar la clase del driver
 			Class.forName("com.mysql.jdbc.Driver");
 
 			// Conectar a la BD
 			System.out.println("Connecting to database...");
-			conn = DriverManager.getConnection(CONNECTION_STRING, USER, PASS);
+			Connection cnn = DriverManager.getConnection(CONNECTION_STRING, USER, PASS);
+			
+			return cnn;
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public static boolean hacerLogin(String nombre, String password)
+	{
+
+		Connection cnn = null;
+		Statement stmt = null;
+
+		try {
+			
+			cnn = getConnection();
 		
 			// Crear la SELECT
-			PreparedStatement ps = conn.prepareStatement("select password from usuarios where usuario = ?");
+			PreparedStatement ps = cnn.prepareStatement("select password from usuarios where usuario = ?");
 			ps.setString(1, nombre);
 			
 			// Ejecutar SELECT
@@ -61,5 +77,7 @@ public class GestorBD
 		return false;
 		
 	}
+	
+	
 
 }

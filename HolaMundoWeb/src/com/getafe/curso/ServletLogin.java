@@ -69,7 +69,8 @@ public class ServletLogin extends HttpServlet
 			HttpSession session = request.getSession();
 			session.setAttribute("usuarioConectado", usuario);
 						
-			response.sendRedirect("dentro.jsp");
+			//response.sendRedirect("dentro.jsp");
+			response.sendRedirect("frmProductos.jsp");
 		}
 		else
 		{

@@ -42,6 +42,8 @@ if(request.getParameter("error") != null)
 
 <br>
 
+
+<!--
 <%
 for (int i = 0; i < 10; i ++)
 {
@@ -53,6 +55,8 @@ Hola calavera <br>
 
 }
 %>
+-->
+
 
 </body>
 </html>
