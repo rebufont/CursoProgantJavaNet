@@ -2,76 +2,64 @@ package com.getafe.curso;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 
-public class EjemploBBDD {
+public class GestorBD
+{
+	
+	static final String CONNECTION_STRING = "jdbc:mysql://localhost/EMP";
 
-	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-	static final String DB_URL = "jdbc:mysql://localhost/EMP";
-
-	static final String USER = "username";
-	static final String PASS = "password";
-
-	public static void main(String[] args) {
+	static final String USER = "root";
+	static final String PASS = "adminadmin";
+	
+	public static boolean hacerLogin(String nombre, String password)
+	{
 
 		Connection conn = null;
 		Statement stmt = null;
 
 		try {
-			// Carga dinamica de clase
-			//Class.forName("com.mysql.jdbc.Driver");
+			// En entorno web (Tomcat), es necesario iniciarlizar la clase del driver
+			Class.forName("com.mysql.jdbc.Driver");
 
-			// STEP 3: Open a connection
+			// Conectar a la BD
 			System.out.println("Connecting to database...");
-			conn = DriverManager.getConnection(DB_URL, USER, PASS);
-
-			// STEP 4: Execute a query
-			System.out.println("Creating statement...");
-			stmt = conn.createStatement();
-			String sql;
-			sql = "SELECT id, first, last, age FROM Employees";
-			ResultSet rs = stmt.executeQuery(sql);
-
-			// STEP 5: Extract data from result set
-			while (rs.next()) {
-				// Retrieve by column name
-				int id = rs.getInt("id");
-				int age = rs.getInt("age");
-				String first = rs.getString("first");
-				String last = rs.getString("last");
-
-				// Display values
-				System.out.print("ID: " + id);
-				System.out.print(", Age: " + age);
-				System.out.print(", First: " + first);
-				System.out.println(", Last: " + last);
+			conn = DriverManager.getConnection(CONNECTION_STRING, USER, PASS);
+		
+			// Crear la SELECT
+			PreparedStatement ps = conn.prepareStatement("select password from usuarios where usuario = ?");
+			ps.setString(1, nombre);
+			
+			// Ejecutar SELECT
+			ResultSet rs = ps.executeQuery();
+			
+			if (!rs.next())
+			{
+				System.out.println("No existe el usuario: " + nombre);
+				//throw new Exception("No existe el usuario: " + nombre);
+				return false;
 			}
-			// STEP 6: Clean-up environment
-			rs.close();
-			stmt.close();
-			conn.close();
-		} catch (SQLException se) {
-			// Handle errors for JDBC
-			se.printStackTrace();
-		} catch (Exception e) {
-			// Handle errors for Class.forName
+					
+			// Verificar password
+			if (! rs.getString("password").equals(password))
+			{
+				System.out.println("Password incorrecta");
+				//throw new Exception("Password incorrecta");
+				return false;
+			}
+		
+			// Devolver resultado
+			return true;
+		}
+		catch (Exception e)
+		{
 			e.printStackTrace();
-		} finally {
-			// finally block used to close resources
-			try {
-				if (stmt != null)
-					stmt.close();
-			} catch (SQLException se2) {
-			} // nothing we can do
-			try {
-				if (conn != null)
-					conn.close();
-			} catch (SQLException se) {
-				se.printStackTrace();
-			} // end finally try
-		} // end try
-		System.out.println("Goodbye!");
-	}// end main
-}// end FirstExample
+		}
+		
+		return false;
+		
+	}
+
+}

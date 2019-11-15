@@ -61,7 +61,8 @@ public class ServletLogin extends HttpServlet
 		
 		
 		//if (loginOk)
-		if (usuario.equals("pepe") && password.equals("pepepass"))
+		//if (usuario.equals("pepe") && password.equals("pepepass"))
+		if (GestorBD.hacerLogin(usuario, password))
 		{
 			// Guardo en la sesión el nombre del usuario conectado,
 			// con una clave asociada fácil de recuperar
