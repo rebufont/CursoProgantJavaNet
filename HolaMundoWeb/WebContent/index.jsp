@@ -17,6 +17,9 @@ Password: <input type="password" name="mipass" /><br>
 <input type="submit" value="enviar" />
 </form>
 
+<img src="./img/gatito.jpg" /><br>
+
+
 <%
 if(request.getParameter("error") != null)
 {

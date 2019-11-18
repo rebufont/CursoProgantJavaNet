@@ -23,15 +23,9 @@
 <%@page import="com.getafe.curso.ElementoPedido"%>
 <%@page import="com.getafe.curso.CarritoCompra"%>
 
-<%
-if (session.getAttribute("usuarioConectado") == null)
-{
-	response.sendRedirect("index.jsp?error=2");
-}
-%>
 
-Usuario conectado: <%=session.getAttribute("usuarioConectado") %>
-<hr>
+<jsp:include page="cabecera.jsp" />
+
 <form action="ServletPedido">
 
 <table style="">
