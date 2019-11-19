@@ -30,7 +30,7 @@ if (Util.verificarUsuarioConectado(session, response) == true)
 {
 %>
 
-	<jsp:include page="cabecera.jsp" />	 
+	<jsp:include page="./cabecera.jsp" />	 
 	
 	<form action="ServletPedido">
 	

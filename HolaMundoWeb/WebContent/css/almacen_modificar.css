@@ -1,0 +1,61 @@
+@charset "ISO-8859-1";
+
+body {
+	font-family: "Lucida Console";
+	font-size: 16px;
+}
+
+div.greyGridTable {
+	border: 2px solid #FFFFFF;
+	width: 200px;
+	text-align: left;
+	border-collapse: collapse;
+}
+
+.divTable.greyGridTable .divTableCell, .divTable.greyGridTable .divTableHead
+	{
+	padding: 3px 4px;
+}
+
+.divTable.greyGridTable .divTableBody .divTableCell {
+	font-size: 13px;
+}
+
+.divTable.greyGridTable .divTableCell:nth-child(odd) {
+	background: #EBEBEB;
+	font-weight: bold;
+	text-align: right;
+	width: 100px;
+}
+
+.greyGridTable .tableFootStyle {
+	font-size: 14px;
+}
+/* DivTable.com */
+.divTable {
+	display: table;
+}
+
+.divTableRow {
+	display: table-row;
+}
+
+.divTableHeading {
+	display: table-header-group;
+}
+
+.divTableCell, .divTableHead {
+	display: table-cell;
+}
+
+.divTableHeading {
+	display: table-header-group;
+}
+
+.divTableFoot {
+	display: table-footer-group;
+}
+
+.divTableBody {
+	display: table-row-group;
+}

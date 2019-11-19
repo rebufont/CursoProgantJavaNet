@@ -29,8 +29,10 @@ public class ProductosFD {
 		return p;
 	}
 
-	public List<Producto> getProductos() {
-		try {
+	public List<Producto> getProductos()
+	{
+		try
+		{
 			Connection cnn = GestorBD.getConnection();
 
 			List<Producto> lstProductos = new ArrayList<Producto>();
@@ -46,13 +48,16 @@ public class ProductosFD {
 			}
 
 			return lstProductos;
-		} catch (SQLException e) {
+		}
+		catch (SQLException e)
+		{
 			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
 	}
 
-	public Producto getProductoById(int idProducto) {
+	public Producto getProductoById(int idProducto)
+	{
 		try {
 			Connection cnn = GestorBD.getConnection();
 
@@ -98,6 +103,38 @@ public class ProductosFD {
 
 	}
 
+	public void modificar(int idProducto, String nombre, double precio, int stock)
+	{
+		try
+		{
+			
+			Connection cnn = GestorBD.getConnection();
+
+			String senSql =
+				"update productos p" +
+				" set p.nombre = ?, p.precio = ?, p.stock = ?" +
+				" where p.id = ?"
+			;
+			
+			PreparedStatement ps = cnn.prepareStatement(senSql);					
+
+			ps.setString(1, nombre);
+			ps.setDouble(2, precio);
+			ps.setInt(3,  stock);
+			ps.setInt(4, idProducto);
+			
+			int result = ps.executeUpdate();
+
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+
+	}
+	
+	
 	public void eliminarProducto(int idProducto)
 	{
 		try {

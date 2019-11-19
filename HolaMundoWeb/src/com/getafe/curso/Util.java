@@ -40,12 +40,12 @@ public class Util {
 	
 	public static boolean verificarUsuarioConectado(HttpSession session, HttpServletResponse response) throws IOException
 	{
-		System.out.println("*** CABECERA...");
-		System.out.println(session.getAttribute("usuarioConectado"));
+		//System.out.println("*** CABECERA...");
+		//System.out.println(session.getAttribute("usuarioConectado"));
 	
 		if (session.getAttribute("usuarioConectado") == null)
 		{
-			System.out.println(" + Redirigiendo a página de LOGIN con error de conexión...");
+			//System.out.println(" + Redirigiendo a página de LOGIN con error de conexión...");
 			response.sendRedirect("index.jsp?error=2");
 			
 			return false;

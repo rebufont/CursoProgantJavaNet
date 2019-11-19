@@ -10,6 +10,9 @@
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 </head>
+
+<link href="./css/almacen.css" rel="stylesheet" type="text/css">
+<!--  
 <style>
 div.minimalistBlack {
 	border: 3px solid #000000;
@@ -82,6 +85,7 @@ div.minimalistBlack {
 	display: table-row-group;
 }
 </style>
+-->
 
 <body>
 
@@ -90,7 +94,7 @@ if (Util.verificarUsuarioConectado(session, response) == true)
 {
 %>
 
-	<jsp:include page="cabecera.jsp" />
+	<jsp:include page="./cabecera.jsp" />
 
 
 	<div class="divTable minimalistBlack">
@@ -99,41 +103,48 @@ if (Util.verificarUsuarioConectado(session, response) == true)
 				<div class="divTableHead">Producto</div>
 				<div class="divTableHead">Precio</div>
 				<div class="divTableHead">Stock</div>
-				<div class="divTableHead">¿Eliminar?</div>
+				<div class="divTableHead"></div>
+				<div class="divTableHead"></div>
 			</div>
 		</div>
 
 		<form action="ServletAlmacen" class="divTableBody">
 		<!--  <div class="divTableBody"> -->
-
-			<%
+<%
 				// Recuperar lista actual de productos (se refresca el stock)
 				List<Producto> lstProductos = ProductosFD.instancia().getProductos();
 
-				for (Producto producto : lstProductos) {
-			%>
-
-		
-
-			<div class="divTableRow">
-				<div class="divTableCell"><%=producto.getNombre()%></div>
-				<div class="divTableCell"><%=producto.getPrecio()%></div>
-				<div class="divTableCell"><%=producto.getStock()%></div>
-				<div style="text-align: center"><input type="checkbox" name="elim<%= producto.getId()%>" /> </div>
-			</div>
+				for (Producto producto : lstProductos)
+				{
+%>
+					<div class="divTableRow">
+						<div class="divTableCell"><%=producto.getNombre()%></div>
+						<div class="divTableCell"><%=producto.getPrecio()%></div>
+						<div class="divTableCell"><%=producto.getStock()%></div>
+						<div class="divTableCell" style="text-align: center"><input type="checkbox" name="elim<%= producto.getId()%>" /> </div>
+						<div class="divTableCell" style="text-align: center">
+							
+							<!--
+							<input type="submit" name="accion" value="Modificar..." />
+							<input type="hidden" name="idModificar" value="<%= producto.getId() %>">
+							-->
+							<input type="radio" name="idModificar" value="<%= producto.getId() %>" />
+							
+						</div>				
+					</div>
 
 		<!--  </div> -->
-		
 
-			<%
+<%
 				}
-			%>
+%>
 
 
 			<div class="divTableRow">
 				<div class="divTableCell"><input type="text" name="nombre"></div>
 				<div class="divTableCell"><input type="text" name="precio"></div>
 				<div class="divTableCell"><input type="text" name="stock"></div>
+				<div class="divTableCell"></div>
 				<div class="divTableCell"></div>
 			</div>
 			<div class="divTableRow">
@@ -144,6 +155,9 @@ if (Util.verificarUsuarioConectado(session, response) == true)
 				<div class="divTableCell"></div>
 				<div class="divTableCell" style="text-align: center">
 					<input type="submit" name="accion" value="Eliminar" />
+				</div>
+				<div class="divTableCell">
+					<input type="submit" name="accion" value="Modificar..." />
 				</div>
 			</div>
 		</form>

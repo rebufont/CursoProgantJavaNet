@@ -32,12 +32,20 @@ public class ServletAlmacen extends HttpServlet
 		
 		if (accion.equals("Nuevo"))
 		{
-
-			String nombre = request.getParameter("nombre");
-			double precio = Double.parseDouble(request.getParameter("precio"));
-			int stock = Integer.parseInt(request.getParameter("stock"));
+			try
+			{
+				String nombre = request.getParameter("nombre");
+				double precio = Double.parseDouble(request.getParameter("precio"));
+				int stock = Integer.parseInt(request.getParameter("stock"));
+				
+				ProductosFD.instancia().altaProducto(nombre, precio, stock);
+			}
+			catch (RuntimeException e)
+			{
+				// TODO: Informar del error al usuario
+			}
 			
-			ProductosFD.instancia().altaProducto(nombre, precio, stock);
+			response.sendRedirect("almacen.jsp");
 			
 		}
 		else if (accion.equals("Eliminar"))
@@ -63,9 +71,46 @@ public class ServletAlmacen extends HttpServlet
 				}
 				
 			}
+			response.sendRedirect("almacen.jsp");
+			
 		}
-		
-		response.sendRedirect("almacen.jsp");
+		else if (accion.equals("Modificar..."))
+		{
+			String parIdModificar = request.getParameter("idModificar");
+			
+			if (parIdModificar != null)
+			{
+				int idModificar = Integer.parseInt(parIdModificar);
+				
+				response.sendRedirect("almacen_modificar.jsp?idModificar=" + idModificar);
+			}
+			else
+			{
+				response.sendRedirect("almacen.jsp");	
+				
+			}
+			
+		}
+		else if (accion.equals("Guardar..."))
+		{
+			String parIdModificar = request.getParameter("idModificar");
+			if (parIdModificar != null)
+			{
+				int idModificar = Integer.parseInt(parIdModificar);
+			
+				ProductosFD.instancia().modificar(idProducto, nombre, precio, stock);
+			}
+			else
+			{
+				response.sendRedirect("almacen.jsp");	
+				
+			}
+		}
+		else
+		{
+			// Por aquí no se debería pasar nunca
+			response.sendRedirect("almacen.jsp");		
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException

@@ -22,7 +22,7 @@ public class GestorBD
 			Class.forName("com.mysql.jdbc.Driver");
 
 			// Conectar a la BD
-			System.out.println("Connecting to database...");
+			//System.out.println("Connecting to database...");
 			Connection cnn = DriverManager.getConnection(CONNECTION_STRING, USER, PASS);
 			
 			return cnn;
