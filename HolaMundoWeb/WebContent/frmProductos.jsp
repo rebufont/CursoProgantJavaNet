@@ -23,28 +23,34 @@
 <%@page import="com.getafe.curso.ElementoPedido"%>
 <%@page import="com.getafe.curso.CarritoCompra"%>
 
+ 
+ 
+<%
+if (Util.verificarUsuarioConectado(session, response) == true)
+{
+%>
 
-<jsp:include page="cabecera.jsp" />
+	<jsp:include page="cabecera.jsp" />	 
+	
+	<form action="ServletPedido">
+	
+	<table style="">
+	
+	<tr>
+		<th>Producto</th>
+		<th>Precio</th>
+		<th>Stock</th>
+		<th>Cantidad a pedir</th>
+		<th>Total</th>
+		<th></th>
+	</tr>
 
-<form action="ServletPedido">
-
-<table style="">
-
-<tr>
-	<th>Producto</th>
-	<th>Precio</th>
-	<th>Stock</th>
-	<th>Cantidad a pedir</th>
-	<th>Total</th>
-	<th></th>
-</tr>
 <%
 	// Recuperar lista actual de productos (se refresca el stock)
 	List<Producto> lstProductos = ProductosFD.instancia().getProductos();
 
 	// Recuperar / inicializar carrito de la compra
 	CarritoCompra carrito = Util.getCarritoCompra(session);
-
 	for (Producto producto : lstProductos)
 	{
 		if (carrito == null)
@@ -60,37 +66,42 @@
 		
 		String paramCant = (atr == null)? "0" : atr.toString();
 		*/
-%>
-<tr>
-	<td><%= producto.getNombre() %></td>
-	<td><%= producto.getPrecio() %></td>
-	<td><%= producto.getStock() %></td>
-	<td>
-		<input
-			type="text"
-			name="cant<%= producto.getId() %>"
-			value="<%= elemento.getCantidadPedida() %>"
-			style="background-color:LightYellow"
-		>
-	</td>
-	<td><%= elemento.getTotal() %></td>
-	<td>
+	%>
+	
+	<tr>
+		<td><%= producto.getNombre() %></td>
+		<td><%= producto.getPrecio() %></td>
+		<td><%= producto.getStock() %></td>
+		<td>
+			<input
+				type="text"
+				name="cant<%= producto.getId() %>"
+				value="<%= elemento.getCantidadPedida() %>"
+				style="background-color:LightYellow"
+			>
+		</td>
+		<td><%= elemento.getTotal() %></td>
+		<td>
 <%
-
-	if (elemento != null)
-	{
-		if(elemento.getCantidadPedida() > producto.getStock())
+	
+		if (elemento != null)
 		{
+			if(elemento.getCantidadPedida() > producto.getStock())
+			{
 %>
-		<div style="color: red">Stock insuficiente</div>
+			<div style="color: red">Stock insuficiente</div>
 <%
+			}
 		}
-	}
 %>
-	</td>
-</tr>
+		</td>
+	</tr>
+	
+	
 <%		
-	}
+	}	
+}
+
 %>
 
 </table>
@@ -98,3 +109,5 @@
 </form>
 
 </body>
+
+

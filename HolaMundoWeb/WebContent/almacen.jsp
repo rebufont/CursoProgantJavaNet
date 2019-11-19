@@ -1,3 +1,4 @@
+<%@page import="com.getafe.curso.Util"%>
 <%@page import="com.getafe.curso.ProductosFD"%>
 <%@page import="com.getafe.curso.Producto"%>
 <%@page import="java.util.List"%>
@@ -84,6 +85,11 @@ div.minimalistBlack {
 
 <body>
 
+<%
+if (Util.verificarUsuarioConectado(session, response) == true)
+{
+%>
+
 	<jsp:include page="cabecera.jsp" />
 
 
@@ -142,8 +148,11 @@ div.minimalistBlack {
 			</div>
 		</form>
 
-
-
 	</div>
+	
+<%
+}
+%>	
+	
 </body>
 </html>

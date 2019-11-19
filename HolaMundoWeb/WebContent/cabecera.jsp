@@ -48,11 +48,8 @@
 
 <body>
 
-	<%
-		if (session.getAttribute("usuarioConectado") == null) {
-			response.sendRedirect("index.jsp?error=2");
-		}
-	%>
+
+	
 
 	<div class="divTable">
 		<div class="divTableBody">
