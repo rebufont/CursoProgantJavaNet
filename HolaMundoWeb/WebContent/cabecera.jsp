@@ -11,7 +11,7 @@
 /* DivTable.com */
 .divTable {
 	display: table;
-	width: 500px;
+	width: 600px;
 }
 
 .divTableRow {
@@ -54,9 +54,11 @@
 	<div class="divTable">
 		<div class="divTableBody">
 			<div class="divTableRow">
-				<div class="divTableCell">Usuario conectado: <%=session.getAttribute("usuarioConectado")%></div>
+				<div class="divTableCell">Usuario conectado: <b><%=session.getAttribute("usuarioConectado")%></b></div>
 				<div class="divTableCell"><a href="./frmProductos.jsp">Pedidos</a></div>
 				<div class="divTableCell"><a href="./almacen.jsp">Almacén</a></div>
+				<div class="divTableCell"><a href="./administracion.jsp">Administración</a></div>
+				<div class="divTableCell"><a href="./desconectar.jsp">Desconectar</a></div>
 			</div>
 		</div>
 	</div>

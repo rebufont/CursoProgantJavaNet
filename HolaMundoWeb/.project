@@ -28,4 +28,11 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.wst.jsdt.core.jsNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>HolaMundoWeb</name>
+			<type>2</type>
+			<location>C:/Users/Mañanas/eclipse-workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/work/Catalina/localhost/HolaMundoWeb</location>
+		</link>
+	</linkedResources>
 </projectDescription>

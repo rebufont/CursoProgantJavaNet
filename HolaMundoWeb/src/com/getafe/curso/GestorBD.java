@@ -73,9 +73,68 @@ public class GestorBD
 		{
 			e.printStackTrace();
 		}
+		finally
+		{
+			if (cnn != null)
+			{
+				try { if (! cnn.isClosed()) cnn.close(); } catch (Exception e) { }					
+				cnn = null;
+			}
+		}
 		
 		return false;
 		
+	}
+	
+	public static boolean verificarPermiso(
+		String usuario,
+		String objeto,
+		String permiso
+	)
+	{
+		Connection cnn = null;
+		try
+		{
+			boolean permisoOk = false;
+			
+			cnn = getConnection();
+			
+			String senSql =
+				"select 1 from vw_permisos_usuarios" +
+				" where usuario = ?" +
+				" and objeto = ?" +
+				" and permiso = ?"
+			;
+			
+			PreparedStatement ps = cnn.prepareStatement(senSql);
+			
+			ps.setString(1, usuario);
+			ps.setString(2, objeto);
+			ps.setString(3, permiso);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			permisoOk = rs.next();
+			
+			rs.close();
+			
+			return permisoOk;
+			
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			if (cnn != null)
+			{
+				try { if (! cnn.isClosed()) cnn.close(); } catch (Exception e) { }					
+				cnn = null;
+			}
+		}
+		
+		return false;
 	}
 	
 	

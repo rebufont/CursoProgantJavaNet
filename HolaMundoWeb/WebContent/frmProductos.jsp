@@ -1,3 +1,4 @@
+<%@page import="com.getafe.curso.GestorBD"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -31,6 +32,11 @@ if (Util.verificarUsuarioConectado(session, response) == true)
 %>
 
 	<jsp:include page="./cabecera.jsp" />	 
+	
+<%
+if(GestorBD.verificarPermiso((String)session.getAttribute("usuarioConectado"), "PEDIDOS", "ACCESO") == true)
+{	
+%>
 	
 	<form action="ServletPedido">
 	
@@ -99,14 +105,16 @@ if (Util.verificarUsuarioConectado(session, response) == true)
 	
 	
 <%		
-	}	
+	}
+%>	
+	</table>
+	<input type="submit" value="Realizar pedido">
+	</form>
+<%	
 }
 
+}
 %>
-
-</table>
-<input type="submit" value="Realizar pedido">
-</form>
 
 </body>
 

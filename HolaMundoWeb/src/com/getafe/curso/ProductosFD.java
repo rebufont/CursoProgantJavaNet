@@ -31,9 +31,11 @@ public class ProductosFD {
 
 	public List<Producto> getProductos()
 	{
+		
+		Connection cnn = null;
 		try
 		{
-			Connection cnn = GestorBD.getConnection();
+			cnn = GestorBD.getConnection();
 
 			List<Producto> lstProductos = new ArrayList<Producto>();
 
@@ -54,12 +56,22 @@ public class ProductosFD {
 			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
+		finally
+		{
+			if (cnn != null)
+			{
+				try { if (! cnn.isClosed()) cnn.close(); } catch (Exception e) { }					
+				cnn = null;
+			}
+		}
+		
 	}
 
 	public Producto getProductoById(int idProducto)
 	{
+		Connection cnn = null;
 		try {
-			Connection cnn = GestorBD.getConnection();
+			cnn = GestorBD.getConnection();
 
 			PreparedStatement ps = cnn.prepareStatement("select * from productos where id = ?");
 
@@ -77,12 +89,22 @@ public class ProductosFD {
 			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
+		finally
+		{
+			if (cnn != null)
+			{
+				try { if (! cnn.isClosed()) cnn.close(); } catch (Exception e) { }					
+				cnn = null;
+			}
+		}
 	}
 
-	public void altaProducto(String nombre, double precio, int stock) {
-		try {
-			
-			Connection cnn = GestorBD.getConnection();
+	public void altaProducto(String nombre, double precio, int stock)
+	{
+		Connection cnn = null;
+		try
+		{
+			cnn = GestorBD.getConnection();
 
 			PreparedStatement ps = cnn.prepareStatement(
 				"insert into productos(nombre, precio, stock) values (?, ?, ?)"	
@@ -100,15 +122,23 @@ public class ProductosFD {
 			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
+		finally
+		{
+			if (cnn != null)
+			{
+				try { if (! cnn.isClosed()) cnn.close(); } catch (Exception e) { }					
+				cnn = null;
+			}
+		}
 
 	}
 
 	public void modificar(int idProducto, String nombre, double precio, int stock)
 	{
+		Connection cnn = null;
 		try
 		{
-			
-			Connection cnn = GestorBD.getConnection();
+			cnn = GestorBD.getConnection();
 
 			String senSql =
 				"update productos p" +
@@ -131,15 +161,24 @@ public class ProductosFD {
 			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
+		finally
+		{
+			if (cnn != null)
+			{
+				try { if (! cnn.isClosed()) cnn.close(); } catch (Exception e) { }					
+				cnn = null;
+			}
+		}
 
 	}
 	
 	
 	public void eliminarProducto(int idProducto)
 	{
-		try {
-			
-			Connection cnn = GestorBD.getConnection();
+		Connection cnn = null;
+		try
+		{
+			cnn = GestorBD.getConnection();
 
 			PreparedStatement ps = cnn.prepareStatement(
 				"delete from productos where id = ?"	
@@ -154,6 +193,14 @@ public class ProductosFD {
 		{
 			e.printStackTrace();
 			throw new RuntimeException(e);
+		}
+		finally
+		{
+			if (cnn != null)
+			{
+				try { if (! cnn.isClosed()) cnn.close(); } catch (Exception e) { }					
+				cnn = null;
+			}
 		}
 		
 	}

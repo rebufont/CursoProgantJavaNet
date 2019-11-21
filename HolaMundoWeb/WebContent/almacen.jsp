@@ -1,3 +1,4 @@
+<%@page import="com.getafe.curso.GestorBD"%>
 <%@page import="com.getafe.curso.Util"%>
 <%@page import="com.getafe.curso.ProductosFD"%>
 <%@page import="com.getafe.curso.Producto"%>
@@ -94,7 +95,14 @@ if (Util.verificarUsuarioConectado(session, response) == true)
 {
 %>
 
-	<jsp:include page="./cabecera.jsp" />
+<jsp:include page="./cabecera.jsp" />
+
+<%	
+if(GestorBD.verificarPermiso((String)session.getAttribute("usuarioConectado"), "ALMACEN", "ACCESO") == true)
+{
+%>
+
+	<!-- <jsp:include page="./cabecera.jsp" /> -->
 
 
 	<div class="divTable minimalistBlack">
@@ -165,6 +173,8 @@ if (Util.verificarUsuarioConectado(session, response) == true)
 	</div>
 	
 <%
+}
+
 }
 %>	
 	
