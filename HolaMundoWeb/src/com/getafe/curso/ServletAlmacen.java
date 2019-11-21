@@ -93,16 +93,22 @@ public class ServletAlmacen extends HttpServlet
 		}
 		else if (accion.equals("Guardar..."))
 		{
-			String parIdModificar = request.getParameter("idModificar");
+			String parIdModificar = request.getParameter("modIdProducto");
 			if (parIdModificar != null)
 			{
-				int idModificar = Integer.parseInt(parIdModificar);
+				int idProducto = Integer.parseInt(parIdModificar);
+				
+				String nombre = request.getParameter("modNombre");
+				double precio = Double.parseDouble(request.getParameter("modPrecio"));
+				int stock = Integer.parseInt(request.getParameter("modStock"));				
 			
 				ProductosFD.instancia().modificar(idProducto, nombre, precio, stock);
+				
+				response.sendRedirect("almacen.jsp");
 			}
 			else
 			{
-				response.sendRedirect("almacen.jsp");	
+				response.sendRedirect("almacen.jsp");
 				
 			}
 		}
