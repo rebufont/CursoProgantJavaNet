@@ -49,8 +49,10 @@ insert into roles(nombre) values('Operario');
 insert into roles(nombre) values('Gestor');
 insert into roles(nombre) values('Administrador');
 
-select *
-from permisos;
+select distinct nombre, objeto
+from permisos
+order by 2, 1
+;
 
 insert into permisos(id_rol, nombre, objeto) values
 ((select r.id from roles r where r.nombre = 'Usuario'), 'ACCESO', 'PEDIDOS');
@@ -63,6 +65,9 @@ insert into permisos(id_rol, nombre, objeto) values
 
 insert into permisos(id_rol, nombre, objeto) values
 ((select r.id from roles r where r.nombre = 'Gestor'), 'ACCESO', 'ALMACEN');
+
+insert into permisos(id_rol, nombre, objeto) values
+((select r.id from roles r where r.nombre = 'Gestor'), 'ACCESO', 'PEDIDOS');
 
 insert into permisos(id_rol, nombre, objeto) values
 ((select r.id from roles r where r.nombre = 'Gestor'), 'MODIFICAR', 'ALMACEN');
@@ -120,7 +125,22 @@ inner join roles r on r.id = p.id_rol
 inner join roles_usuarios ru on ru.id_rol = r.id
 inner join usuarios u on u.id = ru.id_usuario
 order by 1, 2, 3, 4
+;
 
+drop view vw_permisos;
+
+create view vw_permisos_usuarios
+as
+select u.usuario, r.nombre as rol, p.objeto, p.nombre as permiso
+from permisos p
+inner join roles r on r.id = p.id_rol
+inner join roles_usuarios ru on ru.id_rol = r.id
+inner join usuarios u on u.id = ru.id_usuario
+;
+
+select *
+from vw_permisos_usuarios
+;
 
 
 
