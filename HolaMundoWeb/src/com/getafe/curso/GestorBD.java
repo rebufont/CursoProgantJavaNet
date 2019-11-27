@@ -38,18 +38,25 @@ public class GestorBD
 	{
 
 		Connection cnn = null;
-		Statement stmt = null;
 
 		try {
 			
 			cnn = getConnection();
 		
 			// Crear la SELECT
+			// Prueba sin PARAMETER BINDING
+			String sql = "select password from usuarios where usuario = '" + nombre + "'";
+			System.out.println(sql);
+			Statement stmt = cnn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			
+			/*
 			PreparedStatement ps = cnn.prepareStatement("select password from usuarios where usuario = ?");
 			ps.setString(1, nombre);
 			
 			// Ejecutar SELECT
 			ResultSet rs = ps.executeQuery();
+			*/
 			
 			if (!rs.next())
 			{
